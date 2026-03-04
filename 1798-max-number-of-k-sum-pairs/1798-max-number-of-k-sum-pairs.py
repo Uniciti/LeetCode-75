@@ -1,17 +1,18 @@
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
+        count = {}
         result = 0
-        left = 0
-        right = len(nums) - 1
-        nums = sorted(nums)
-        while left < right:
-            if nums[left] + nums[right] < k:
-                left += 1
-            elif nums[left] + nums[right] > k:
-                right -= 1
+        for x in nums:
+            count[x] = count.get(x, 0) + 1
+        for x in count.keys():
+            y = k - x
+            if y == x:
+                result += math.floor(count.get(x) / 2)
+                count[x] = count.get(x, 0) % 2
+
             else:
-                left += 1
-                right -= 1
-                result += 1
-        
+                min_key = x if count.get(x,0) < count.get(y,0) else y
+                result += min(count.get(x), count.get(y, 0))
+                if min_key in count:
+                    count[min_key] = 0
         return result
