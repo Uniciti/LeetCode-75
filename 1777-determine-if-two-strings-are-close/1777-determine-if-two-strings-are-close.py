@@ -7,4 +7,4 @@ class Solution:
         for i in word2:
             d2[i] = d2.get(i, 0) + 1
 
-        return (sorted(d1.values()) == sorted(d2.values())) and (sorted(d1.keys()) == sorted(d2.keys())) 
+        return (sorted(d1.values()) == sorted(d2.values())) and (d1.keys() == d2.keys())
