@@ -1,18 +1,33 @@
 class Solution:
     def closeStrings(self, word1: str, word2: str) -> bool:
-        d1 = {}
-        d2 = {}
-        for i in word1:
-            d1[i] = d1.get(i, 0) + 1
-        for i in word2:
-            d2[i] = d2.get(i, 0) + 1
+        size1 = len(word1)
+        size2 = len(word2)
+        if size1 != size2:
+            return False
+        
+        unique1 = len(set(word1))
+        unique2 = len(set(word2))
+        if unique1 != unique2:
+            return False
+        
+        if len(set(word1)|set(word2)) > unique1:
+            return False
 
-        f1 = {}
-        f2 = {}
+        nums1 = []
+        for c in set(word1):
+            nums1.append(word1.count(c))
+        
+        nums2 = []
+        for c in set(word2):
+            nums2.append(word2.count(c))
 
-        for j in d1.values():
-            f1[j] = f1.get(j, 0) + 1
-        for j in d2.values():
-            f2[j] = f2.get(j, 0) + 1
+        nums1.sort()
+        nums2.sort()
+ 
+        idx = 0
+        while idx < len(nums1):
+            if nums1[idx] != nums2[idx]:
+                return False
+            idx += 1
 
-        return (f1 == f2) and (d1.keys() == d2.keys())
+        return True
